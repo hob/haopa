@@ -1,0 +1,15 @@
+#!/usr/bin/with-contenv bashio
+bashio::log.info "Starting OPA server..."
+
+# Get config values
+policy_path=$(bashio::config 'policy_path')
+
+# Ensure policy directory exists
+mkdir -p "${policy_path}"
+
+# Start OPA server
+exec s6-setuidgid root opa run \
+    --server \
+    --addr :8181 \
+    --log-level $(bashio::config 'log_level') \
+    "${policy_path}"

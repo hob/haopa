@@ -1,0 +1,53 @@
+# Home Assistant Add-on: OPA Authorization
+# Repository structure:
+#
+# addon_name/
+# ├── DOCS.md
+# ├── CHANGELOG.md
+# ├── README.md
+# ├── run.sh
+# ├── config.yaml
+# └── rootfs/
+#     ├── etc/
+#     │   ├── services.d/
+#     │   │   ├── opa/
+#     │   │   │   ├── run
+#     │   │   │   └── finish
+#     │   │   └── python/
+#     │   │       ├── run
+#     │   │       └── finish
+#     │   └── opa/
+#     │       └── config.yaml
+#     └── usr/
+#         └── bin/
+#             └── opa_auth.py
+
+# config.yaml
+name: "OPA Authorization"
+version: "1.0.0"
+slug: "opa_auth"
+description: "Open Policy Agent authorization for Home Assistant actions"
+url: "https://github.com/hob/haopa"
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+stage: "experimental"
+init: false
+map:
+  - share:rw
+startup: "services"
+hassio_api: true
+hassio_role: "manager"
+ports:
+  "8099/tcp": 8099  # Authorization API port only
+options:
+  policy_path: "/share/opa/policies"
+  log_level: "info"
+schema:
+  policy_path: "str"
+  log_level: "list(trace|debug|info|warning|error)"
+environment:
+  S6_SERVICES_GRACETIME: 0

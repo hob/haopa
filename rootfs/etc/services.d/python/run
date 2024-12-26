@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv bashio
+bashio::log.info "Starting Python authorization service..."
+
+# Start the Python service
+exec python3 /usr/bin/opa_auth.py

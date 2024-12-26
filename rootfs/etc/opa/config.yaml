@@ -1,0 +1,4 @@
+services:
+  - name: "homeassistant"
+    url: "http://localhost:8181"
+    allow_ad_hoc_queries: false
